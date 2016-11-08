@@ -62,7 +62,6 @@ public class Category {
 
 	@Override
 	public boolean equals(Object o) {
-		return o instanceof Category && ((Category) o).id == id && ((Category) o).name == name;
+		return o instanceof Category && ((Category) o).id == id && ((Category) o).name.equals(name);
 	}
-
 }

@@ -25,7 +25,7 @@ public class Person {
 		return address;
 	}
 
-	void setAddress(Address address) {
+	public void setAddress(Address address) {
 		this.address = address;
 		address.setPerson(this);
 	}
