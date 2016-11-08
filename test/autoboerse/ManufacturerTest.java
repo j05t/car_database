@@ -1,9 +1,5 @@
 package autoboerse;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,15 +13,8 @@ import static org.junit.Assert.*;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class ManufacturerTest {
-
-	static final boolean verbose = true;
-
 	final private int id = 42;
 	final private String name = "Toyota";
-
-	static EntityManagerFactory factory;
-	static EntityManager manager;
-	static EntityTransaction transaction;
 
 	static ManufacturerRepository manufacturerRepository;
 	Manufacturer manufacturer;
@@ -33,7 +22,6 @@ public class ManufacturerTest {
 	@BeforeClass
 	public static void setup() {
 		manufacturerRepository = new ManufacturerRepository();
-
 		Transaction.begin();
 		ManufacturerRepository.reset();
 		CarRepository.reset();
@@ -42,7 +30,6 @@ public class ManufacturerTest {
 
 	@AfterClass
 	public static void teardown() {
-
 		Transaction.begin();
 		ManufacturerRepository.reset();
 		CarRepository.reset();
@@ -51,15 +38,9 @@ public class ManufacturerTest {
 
 	@Test
 	public void create() {
-
 		Transaction.begin();
-
 		manufacturer = manufacturerRepository.createManufacturer(id, name);
-
 		assertNotNull(manufacturer);
-
-		if (verbose)
-			System.out.println("Persisted " + manufacturer);
 		Transaction.commit();
 	}
 
@@ -73,5 +54,4 @@ public class ManufacturerTest {
 		Transaction.commit();
 		assertEquals("Ford", findManufacturer.getName());
 	}
-
 }

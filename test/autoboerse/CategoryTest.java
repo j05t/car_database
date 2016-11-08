@@ -2,10 +2,6 @@ package autoboerse;
 
 import static org.junit.Assert.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,14 +20,8 @@ import spize.persistence.Transaction;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class CategoryTest {
-
 	final private int id = 42;
 	final private String name = "Sportwagen";
-	static final boolean verbose = true;
-
-	static EntityManagerFactory factory;
-	static EntityManager manager;
-	static EntityTransaction transaction;
 
 	static CategoryRepository categoryRepository;
 	Category category;
@@ -39,7 +29,6 @@ public class CategoryTest {
 	@BeforeClass
 	public static void setup() {
 		categoryRepository = new CategoryRepository();
-
 		Transaction.begin();
 		CategoryRepository.reset();
 		CarRepository.reset();
@@ -56,20 +45,14 @@ public class CategoryTest {
 
 	@Test
 	public void create() {
-
 		Transaction.begin();
-
 		category = categoryRepository.createCategory(id, name);
 		assertNotNull(category);
-
-		if (verbose)
-			System.out.println("Persisted " + category);
 		Transaction.commit();
 	}
 
 	@Test
 	public void modify() {
-
 		Category findCategory = categoryRepository.find(id);
 		assertNotNull(findCategory);
 		assertEquals("Sportwagen", findCategory.getName());

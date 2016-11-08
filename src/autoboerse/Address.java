@@ -23,14 +23,13 @@ public class Address {
 	public Address(AddressPK addressPK, String location) {
 		this.addressPK = addressPK;
 		this.location = location;
-
 	}
 
 	public Person getPerson() {
 		return person;
 	}
 
-	public void setPerson(Person person) {
+	void setPerson(Person person) {
 		this.person = person;
 	}
 

@@ -20,9 +20,6 @@ import spize.persistence.Transaction;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class PersonAddressTest {
-
-	static final boolean verbose = true;
-
 	static final AddressPK pers1_pk = new AddressPK("Feldweg", 8055);
 	static final int florian_id = 1;
 	static final String florian_firstName = "Florian";
@@ -31,7 +28,6 @@ public class PersonAddressTest {
 	static final int josef_id = 1;
 	static final String josef_firstName = "Josef";
 	static final String josef_lastName = "Steppan";
-
 	static final String ort = "Graz";
 
 	static PersonRepository persRepository;
@@ -56,7 +52,6 @@ public class PersonAddressTest {
 		BuyerRepository.reset();
 		SellerRepository.reset();
 		PersonRepository.reset();
-
 		Transaction.commit();
 	}
 
@@ -75,35 +70,22 @@ public class PersonAddressTest {
 	@Test
 	public void create() {
 		Transaction.begin();
-
 		florian = persRepository.createPerson(florian_id, florian_firstName, florian_lastName);
-
 		florians_address = addrRepository.createAddress(pers1_pk, ort);
-
 		assertNotNull(florian);
 		assertNotNull(florians_address);
-
 		Transaction.commit();
-
-		if (verbose)
-			System.out.println("Persisted " + florian);
-		if (verbose)
-			System.out.println("Persisted " + florians_address);
-
 	}
 
 	@Test
 	public void join() {
 		Transaction.begin();
-
 		florians_address.setPerson(florian);
-
 		Transaction.commit();
 	}
 
 	@Test
 	public void verify() {
-
 		List<Person> people = persRepository.findAll();
 		assertEquals(1, people.size());
 
@@ -111,21 +93,12 @@ public class PersonAddressTest {
 		assertNotNull(florian);
 
 		assertEquals(florian, people.get(0));
-
 		assertEquals(florian, florians_address.getPerson());
-
-		if (verbose)
-			for (Person per : people)
-				System.out.println("Found " + per);
 
 		List<Address> addresses = addrRepository.findAll();
 		assertEquals(1, addresses.size());
 
 		assertEquals(florians_address, addresses.get(0));
-
-		if (verbose)
-			for (Address ad : addresses)
-				System.out.println("Found " + ad);
 		assertEquals(florian, florians_address.getPerson());
 
 		Transaction.begin();
@@ -140,7 +113,5 @@ public class PersonAddressTest {
 			fail("commit successful");
 		} catch (Exception exc) {
 		}
-
 	}
-
 }

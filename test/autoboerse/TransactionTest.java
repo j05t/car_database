@@ -25,10 +25,7 @@ import spize.persistence.Transaction;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class TransactionTest {
-	static final boolean verbose = true;
-
 	// Car
-
 	static final int bmwId = 1;
 	static final String bmwName = "BMW";
 	static final int bmwKm = 1;
@@ -48,7 +45,6 @@ public class TransactionTest {
 	static final int bmw2FeatureId = 1;
 
 	// Buyer
-
 	static final int florianID = 1;
 	static final String florianFirstName = "Florian";
 	static final String florianLastName = "Gumhold";
@@ -58,7 +54,6 @@ public class TransactionTest {
 	static final String josefLastName = "Steppan";
 
 	// Seller
-
 	static final int maxID = 3;
 	static final String maxFirstName = "Max";
 	static final String maxLastName = "Muster";
@@ -68,12 +63,10 @@ public class TransactionTest {
 	static final String markusLastName = "Maier";
 
 	// Manufacturer
-
 	static final String manufacturerName = "BMW";
 	static final int manufacturerManufacturerId = 1;
 
 	// Category
-
 	static final int categoryId = 1;
 	static final String categoryName = "Pickup";
 
@@ -111,8 +104,8 @@ public class TransactionTest {
 		buyerRepository = new BuyerRepository();
 		sellerRepository = new SellerRepository();
 		persRepository = new PersonRepository();
-		Transaction.begin();
 
+		Transaction.begin();
 		TransactionRepository.reset();
 		CarRepository.reset();
 		ManufacturerRepository.reset();
@@ -120,14 +113,12 @@ public class TransactionTest {
 		BuyerRepository.reset();
 		SellerRepository.reset();
 		PersonRepository.reset();
-
 		Transaction.commit();
 	}
 
 	@AfterClass
 	public static void teardown() {
 		Transaction.begin();
-
 		TransactionRepository.reset();
 		CarRepository.reset();
 		ManufacturerRepository.reset();
@@ -136,13 +127,11 @@ public class TransactionTest {
 		SellerRepository.reset();
 		PersonRepository.reset();
 		Transaction.commit();
-
 		Persistence.close();
 	}
 
 	@Test
 	public void create() {
-
 		// Make a single transaction for buyer and seller otherwise an exception
 		// is raised
 		// Maybe change inheritance.joined to table_per_class
@@ -187,53 +176,25 @@ public class TransactionTest {
 
 	@Test
 	public void verify() {
-		if (verbose)
-			System.out.println("Persisted " + t1);
-		if (verbose)
-			System.out.println("Persisted " + car1);
-		if (verbose)
-			System.out.println("Persisted " + florian);
-		if (verbose)
-			System.out.println("Persisted " + max);
-
 		// Transaction
-
 		List<autoboerse.Transaction> trans = transRepository.findAll();
 		assertEquals(1, trans.size());
-
-		if (verbose)
-			transRepository.printAll();
-
 		assertTrue(trans.contains(t1));
 
 		// CAR-TRANSACTION
-
 		assertEquals(car1, t1.getCar());
-
 		List<Car> cars = carRepository.findAll();
 		assertEquals(2, cars.size());
-
-		if (verbose)
-			carRepository.printAll();
-
 		assertTrue(cars.contains(car1));
 
-		if (verbose)
-			carRepository.printAll();
-
 		// TRANSACTION-BUYER
-
 		List<Buyer> buyer = buyerRepository.findAll();
 		assertEquals(2, buyer.size());
-
 		assertEquals(florian, t1.getBuyer());
 
 		// TRANSACTION-SELLER
-
 		List<Seller> seller = sellerRepository.findAll();
 		assertEquals(2, seller.size());
-
 		assertEquals(max, t1.getSeller());
-
 	}
 }

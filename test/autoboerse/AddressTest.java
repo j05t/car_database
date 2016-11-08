@@ -2,10 +2,6 @@ package autoboerse;
 
 import static org.junit.Assert.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,36 +22,26 @@ import spize.persistence.*;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class AddressTest {
-
-	static final boolean verbose = true;
 	final private String location = "Kapfenberg";
 	final private String street = "Werkstrasse 6";
 	final private int postalcode = 1234;
 
 	final private AddressPK addressPk = new AddressPK(street, postalcode);
 
-	static EntityManagerFactory factory;
-	static EntityManager manager;
-	static EntityTransaction transaction;
-
 	static AddressRepository addrRepository;
 	Address address;
 
 	@BeforeClass
 	public static void setup() {
-
 		addrRepository = new AddressRepository();
-
 		Transaction.begin();
 		AddressRepository.reset();
 		PersonRepository.reset();
 		Transaction.commit();
-
 	}
 
 	@AfterClass
 	public static void teardown() {
-
 		Transaction.begin();
 		AddressRepository.reset();
 		PersonRepository.reset();
@@ -65,13 +51,9 @@ public class AddressTest {
 
 	@Test
 	public void modify() {
-
 		Transaction.begin();
 		address = addrRepository.createAddress(addressPk, location);
 		assertNotNull(address);
-
-		if (verbose)
-			System.out.println("Persisted " + address);
 
 		Transaction.commit();
 
@@ -83,5 +65,4 @@ public class AddressTest {
 		Transaction.commit();
 		assertEquals("Wien", address.getLocation());
 	}
-
 }

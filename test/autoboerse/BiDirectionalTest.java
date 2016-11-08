@@ -2,10 +2,6 @@ package autoboerse;
 
 import static org.junit.Assert.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -22,7 +18,7 @@ import autoboerse.ManufacturerRepository;
 import spize.persistence.Transaction;
 
 /**
- * Tests navigation from/to manufacturer <-> car, category <-> car.
+ * Tests navigation from/to manufacturer <-> car, category <-> car, person <-> address
  * 
  * @author js
  * 
@@ -30,9 +26,6 @@ import spize.persistence.Transaction;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class BiDirectionalTest {
-
-	static final boolean verbose = true;
-
 	final private int id = 42;
 	final private int km = 98000;
 	final private float price = 12000;
@@ -47,26 +40,38 @@ public class BiDirectionalTest {
 	final private String CategoryDescription = "Limousine";
 	final private int CategoryId = 1;
 
+	// Features
 	final private String feature1Description = "Klimaanlage";
 	final private int feature1Id = 1;
-
 	final private String feature2Description = "Tempomat";
 	final private int feature2Id = 2;
+	
+	// Address
+	final private String location = "Kapfenberg";
+	final private String street = "Werkstrasse 6";
+	final private int postalcode = 1234;
+	final private AddressPK addressPk = new AddressPK(street, postalcode);
+	
+	// Person
+	static final int person_id = 1;
+	static final String person_firstName = "Florian";
+	static final String person_lastName = "Gumhold";
+
 
 	Car car;
 	Manufacturer manufacturer;
 	Category category;
 	Feature feature1;
 	Feature feature2;
+	Address address;
+	Person person;
 
 	static CarRepository carRepository;
 	static FeatureRepository featureRepository;
 	static CategoryRepository categoryRepository;
 	static ManufacturerRepository manufacturerRepository;
-
-	static EntityManagerFactory factory;
-	static EntityManager manager;
-	static EntityTransaction transaction;
+	static AddressRepository addressRepository;
+	static PersonRepository personRepository;
 
 	@BeforeClass
 	public static void setup() {
@@ -74,31 +79,35 @@ public class BiDirectionalTest {
 		featureRepository = new FeatureRepository();
 		categoryRepository = new CategoryRepository();
 		manufacturerRepository = new ManufacturerRepository();
-
+		addressRepository = new AddressRepository();
+		personRepository = new PersonRepository();
+		
 		Transaction.begin();
 		CarFeatureRepository.reset();
 		CarRepository.reset();
 		ManufacturerRepository.reset();
 		FeatureRepository.reset();
 		CategoryRepository.reset();
+		AddressRepository.reset();
+		PersonRepository.reset();
 		Transaction.commit();
 	}
 
 	@AfterClass
 	public static void teardown() {
-
 		Transaction.begin();
 		CarFeatureRepository.reset();
 		CarRepository.reset();
 		ManufacturerRepository.reset();
 		FeatureRepository.reset();
 		CategoryRepository.reset();
+		AddressRepository.reset();
+		PersonRepository.reset();
 		Transaction.commit();
 	}
 
 	@Test
 	public void testBidirectionals() {
-
 		Transaction.begin();
 
 		feature1 = featureRepository.createCarFeature(feature1Id, feature1Description);
@@ -106,6 +115,9 @@ public class BiDirectionalTest {
 		category = categoryRepository.createCategory(CategoryId, CategoryDescription);
 		manufacturer = manufacturerRepository.createManufacturer(manufacturerId, manufacturerDescription);
 		car = carRepository.createCar(id, manufacturer, category, name, km, registrationYear, price, description);
+		address = addressRepository.createAddress(addressPk, location);
+		person = personRepository.createPerson(person_id, person_firstName, person_lastName);
+
 		Transaction.commit();
 
 		assertNotNull(feature1);
@@ -113,6 +125,10 @@ public class BiDirectionalTest {
 		assertNotNull(category);
 		assertNotNull(manufacturer);
 		assertNotNull(car);
+		assertNotNull(address);
+		assertNotNull(person);
+		
+		person.setAddress(address);
 
 		car.add(feature1);
 		car.add(feature2);
@@ -125,5 +141,8 @@ public class BiDirectionalTest {
 
 		assertTrue(feature1.getCars().contains(car));
 		assertTrue(feature2.getCars().contains(car));
+		
+		assertTrue(person.getAddress().equals(address));
+		assertTrue(address.getPerson().equals(person));
 	}
 }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -16,6 +17,18 @@ public class Person {
 	private String firstName;
 	@Column(name = "LAST_NAME")
 	private String lastName;
+	
+	@OneToOne(mappedBy = "person")
+	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	void setAddress(Address address) {
+		this.address = address;
+		address.setPerson(this);
+	}
 
 	protected Person() {
 	}
@@ -55,5 +68,4 @@ public class Person {
 		return "Person [getId()=" + getId() + ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName()
 				+ "]";
 	}
-
 }
