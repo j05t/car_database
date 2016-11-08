@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="postgres" schema="public" type="PostgreSQL - 9.5.4">
+   <tables>
+      <table name="address" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="street" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="postalcode" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="location" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="person_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <primaryKey column="street" sequenceNumberInPK="1"/>
+         <primaryKey column="postalcode" sequenceNumberInPK="2"/>
+         <index name="pk_address" unique="true">
+            <column ascending="true" name="street"/>
+            <column ascending="true" name="postalcode"/>
+         </index>
+      </table>
+      <table name="buyer" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+            <child column="buyer_id" foreignKey="fk_buyer" implied="false" onDeleteCascade="false" table="transaction"/>
+            <parent column="id" foreignKey="fk_id" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="buyer_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="car" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('car_id_sequence'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="cars_id" foreignKey="fk_car" implied="false" onDeleteCascade="false" table="car_feature"/>
+            <child column="car_id" foreignKey="fk_car" implied="false" onDeleteCascade="false" table="transaction"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="manufacturer_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_manufacturer" implied="false" onDeleteCascade="false" table="manufacturer"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="category_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_category" implied="false" onDeleteCascade="false" table="category"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="km" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="2" id="5" name="price" nullable="false" remarks="" size="12" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="description" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="registration_year" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="car_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="car_feature" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cars_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_car" implied="false" onDeleteCascade="false" table="car"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="features_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_feature" implied="false" onDeleteCascade="false" table="feature"/>
+         </column>
+         <primaryKey column="features_id" sequenceNumberInPK="1"/>
+         <primaryKey column="cars_id" sequenceNumberInPK="2"/>
+         <index name="pk_carfeature" unique="true">
+            <column ascending="true" name="features_id"/>
+            <column ascending="true" name="cars_id"/>
+         </index>
+      </table>
+      <table name="category" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('category_id_sequence'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="category_id" foreignKey="fk_category" implied="false" onDeleteCascade="false" table="car"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="category_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="feature" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('feature_id_sequence'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="features_id" foreignKey="fk_feature" implied="false" onDeleteCascade="false" table="car_feature"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="description" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="feature_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="manufacturer" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('manufacturer_id_sequence'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="manufacturer_id" foreignKey="fk_manufacturer" implied="false" onDeleteCascade="false" table="car"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="manufacturer_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="person" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('person_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="person_id" foreignKey="fk_person" implied="false" onDeleteCascade="false" table="address"/>
+            <child column="id" foreignKey="fk_id" implied="false" onDeleteCascade="false" table="buyer"/>
+            <child column="id" foreignKey="fk_id" implied="false" onDeleteCascade="false" table="seller"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="first_name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="last_name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="dtype" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="person_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="seller" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+            <child column="seller_id" foreignKey="fk_seller" implied="false" onDeleteCascade="false" table="transaction"/>
+            <parent column="id" foreignKey="fk_id" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="seller_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="transaction" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="car_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_car" implied="false" onDeleteCascade="false" table="car"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="buyer_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_buyer" implied="false" onDeleteCascade="false" table="buyer"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="seller_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_seller" implied="false" onDeleteCascade="false" table="seller"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="date" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="car_id" sequenceNumberInPK="1"/>
+         <primaryKey column="buyer_id" sequenceNumberInPK="2"/>
+         <primaryKey column="seller_id" sequenceNumberInPK="3"/>
+         <primaryKey column="date" sequenceNumberInPK="4"/>
+         <index name="pk_transaction" unique="true">
+            <column ascending="true" name="car_id"/>
+            <column ascending="true" name="buyer_id"/>
+            <column ascending="true" name="seller_id"/>
+            <column ascending="true" name="date"/>
+         </index>
+      </table>
+   </tables>
+</database>
