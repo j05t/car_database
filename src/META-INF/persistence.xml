@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="carDb" transaction-type="RESOURCE_LOCAL">
+		<class>autoboerse.Address</class>
+		<class>autoboerse.AddressPK</class>
+		<class>autoboerse.Car</class>
+		<class>autoboerse.CarFeature</class>
+		<class>autoboerse.CarFeaturePK</class>
+		<class>autoboerse.Feature</class>
+		<class>autoboerse.Manufacturer</class>
+		<class>autoboerse.Buyer</class>
+		<class>autoboerse.Category</class>
+		<class>autoboerse.Person</class>
+		<class>autoboerse.Transaction</class>
+		<class>autoboerse.TransactionPK</class>
+		<class>autoboerse.Seller</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="postgres"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>
