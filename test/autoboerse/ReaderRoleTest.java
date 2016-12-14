@@ -26,23 +26,27 @@ public class ReaderRoleTest {
 	public static void setup() {
 		Persistence.connect("carDb", user, password);
 		manRepository = new ManufacturerRepository();
-	
 	}
 
-	/* this would throw an exception when executed
 	@AfterClass
 	public static void teardown() {
-		Transaction.begin();
-		ManufacturerRepository.reset();
-		Transaction.commit();
+		try {
+			Transaction.begin();
+			ManufacturerRepository.reset();
+			Transaction.commit();
+			Persistence.close();
+		} catch (Exception e) {
+			System.out.println("Exception in ReaderRoleTest.tearDown():");
+			e.printStackTrace();
+		}
 	}
-	*/
-	
+
 	@Test(expected = RollbackException.class)
 	public void createEntity() {
 		Transaction.begin();
 		manRepository.createManufacturer(id, name);
 		Transaction.commit();
+		fail("Commit successful.");
 	}
 
 	@Test(expected = RollbackException.class)
@@ -50,5 +54,6 @@ public class ReaderRoleTest {
 		Transaction.begin();
 		manRepository.createManufacturer(id, name).setName("Volvo");
 		Transaction.commit();
+		fail("Commit successful.");
 	}
 }
