@@ -21,7 +21,7 @@ import spize.persistence.Transaction;
 public class PersonAddressTest {
 	static final int florian_id = 1;
 	static final Address florians_address = new Address(florian_id, "Feldweg", 8055, "Graz");
-	
+
 	static final String florian_firstName = "Florian";
 	static final String florian_lastName = "Gumhold";
 

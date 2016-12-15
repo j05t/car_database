@@ -9,9 +9,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TransactionPK implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Column(name = "SELLER_ID")
 	private int sellerId;
@@ -49,18 +46,14 @@ public class TransactionPK implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-
 		return o instanceof TransactionPK && ((TransactionPK) o).sellerId == sellerId
 				&& ((TransactionPK) o).buyerId == buyerId && ((TransactionPK) o).carId == carId
 				&& ((TransactionPK) o).date.equals(date);
-
 	}
 
 	@Override
 	public int hashCode() {
-
 		return sellerId + buyerId + carId + date.hashCode();
-
 	}
 
 	@Override
@@ -68,5 +61,4 @@ public class TransactionPK implements Serializable {
 		return "TransactionPK [getSellerId()=" + getSellerId() + ", getBuyerId()=" + getBuyerId() + ", getCarId()="
 				+ getCarId() + ", getDate()=" + getDate() + ", hashCode()=" + hashCode() + "]";
 	}
-
 }

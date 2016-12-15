@@ -9,11 +9,8 @@ public class CategoryRepository extends Repository<Category> implements IReposit
 	}
 
 	public Category createCategory(int id, String name) {
-
 		Category category = new Category(id, name);
-
 		entityManager.persist(category);
-
 		return category;
 	}
 
@@ -23,5 +20,4 @@ public class CategoryRepository extends Repository<Category> implements IReposit
 
 	static final String schema = "public";
 	static final String table = "CATEGORY";
-
 }

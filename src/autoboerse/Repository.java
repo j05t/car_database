@@ -8,11 +8,11 @@ import javax.persistence.TypedQuery;
 import spize.persistence.Persistence;
 
 /**
-* This class was taken from persistence-with-jpa-examples
-* 
-* @author  Harald Habiger
-* @version 1.0
-*/
+ * This class was taken from persistence-with-jpa-examples
+ * 
+ * @author Harald Habiger
+ * @version 1.0
+ */
 
 public abstract class Repository<T> {
 
@@ -56,10 +56,8 @@ public abstract class Repository<T> {
 		System.out.println();
 
 	}
-	
-	
-	public String getPersistenceUnitName()
-	{
+
+	public String getPersistenceUnitName() {
 		return persistenceUnitName;
 	}
 }

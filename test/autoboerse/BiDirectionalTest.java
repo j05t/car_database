@@ -18,7 +18,8 @@ import autoboerse.ManufacturerRepository;
 import spize.persistence.Transaction;
 
 /**
- * Tests navigation from/to manufacturer <-> car, category <-> car, person <-> address
+ * Tests navigation from/to manufacturer <-> car, category <-> car, person <->
+ * address
  * 
  * @author js
  * 
@@ -45,18 +46,17 @@ public class BiDirectionalTest {
 	final private int feature1Id = 1;
 	final private String feature2Description = "Tempomat";
 	final private int feature2Id = 2;
-	
+
 	// Address
 	final private String location = "Kapfenberg";
 	final private String street = "Werkstrasse 6";
 	final private int postalcode = 1234;
 	private Address address = new Address(1, street, postalcode, location);
-	
+
 	// Person
 	static final int person_id = 1;
 	static final String person_firstName = "Florian";
 	static final String person_lastName = "Gumhold";
-
 
 	Car car;
 	Manufacturer manufacturer;
@@ -80,7 +80,7 @@ public class BiDirectionalTest {
 		manufacturerRepository = new ManufacturerRepository();
 		addressRepository = new AddressRepository();
 		personRepository = new PersonRepository();
-		
+
 		Transaction.begin();
 		CarFeatureRepository.reset();
 		CarRepository.reset();
@@ -126,7 +126,7 @@ public class BiDirectionalTest {
 		assertNotNull(car);
 		assertNotNull(address);
 		assertNotNull(person);
-		
+
 		person.setAddress(address);
 
 		car.add(feature1);
@@ -140,7 +140,7 @@ public class BiDirectionalTest {
 
 		assertTrue(feature1.getCars().contains(car));
 		assertTrue(feature2.getCars().contains(car));
-		
+
 		assertTrue(person.getAddress().equals(address));
 		assertTrue(address.getPerson().equals(person));
 	}

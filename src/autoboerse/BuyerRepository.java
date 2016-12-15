@@ -9,10 +9,8 @@ public class BuyerRepository extends Repository<Buyer> implements IRepository<Bu
 	}
 
 	public Buyer createBuyer(int id, String firstName, String lastName) {
-
 		Buyer buyer = new Buyer(id, firstName, lastName);
 		entityManager.persist(buyer);
-
 		return buyer;
 	}
 
@@ -22,5 +20,4 @@ public class BuyerRepository extends Repository<Buyer> implements IRepository<Bu
 
 	static final String schema = "public";
 	static final String table = "BUYER";
-
 }

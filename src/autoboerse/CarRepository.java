@@ -12,9 +12,7 @@ public class CarRepository extends Repository<Car> implements IRepository<Car> {
 			String registration_year, double price, String description) {
 
 		Car car = new Car(id, manufacturer, category, name, km, registration_year, price, description);
-
 		entityManager.persist(car);
-
 		return car;
 	}
 
@@ -24,5 +22,4 @@ public class CarRepository extends Repository<Car> implements IRepository<Car> {
 
 	static final String schema = "public";
 	static final String table = "CAR";
-
 }

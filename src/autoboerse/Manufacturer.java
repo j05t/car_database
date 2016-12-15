@@ -26,12 +26,10 @@ public class Manufacturer {
 		return cars;
 	}
 
-	
 	void add(Car car) {
 		cars.add(car);
 	}
-	
-	
+
 	protected Manufacturer() {
 	}
 
@@ -60,5 +58,4 @@ public class Manufacturer {
 	public String toString() {
 		return "Manufacturer [getCars()=" + getCars() + ", getId()=" + getId() + ", getName()=" + getName() + "]";
 	}
-
 }

@@ -2,20 +2,15 @@ package autoboerse;
 
 import spize.persistence.Persistence;
 
-public class FeatureRepository extends Repository<Feature> implements IRepository<Feature>
-
-{
+public class FeatureRepository extends Repository<Feature> implements IRepository<Feature> {
 
 	public FeatureRepository() {
 		super(Feature.class);
 	}
 
 	public Feature createCarFeature(int id, String name) {
-
 		Feature feature = new Feature(id, name);
-
 		entityManager.persist(feature);
-
 		return feature;
 	}
 
@@ -25,5 +20,4 @@ public class FeatureRepository extends Repository<Feature> implements IRepositor
 
 	static final String schema = "public";
 	static final String table = "FEATURE";
-
 }

@@ -19,5 +19,4 @@ public class Buyer extends Person {
 	public Buyer(int id, String firstName, String lastName) {
 		super(id, firstName, lastName);
 	}
-
 }

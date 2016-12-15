@@ -12,7 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Address {
 
 	@Id
-	@Column(name="PERSON_ID")
+	@Column(name = "PERSON_ID")
 	private int personId;
 
 	private String location;
@@ -20,7 +20,7 @@ public class Address {
 	private int postalcode;
 
 	@OneToOne
-	@PrimaryKeyJoinColumn(name = "PERSON_ID", referencedColumnName="ID")
+	@PrimaryKeyJoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
 	private Person person;
 
 	protected Address() {
@@ -32,7 +32,7 @@ public class Address {
 		this.postalcode = postalCode;
 		this.street = street;
 	}
-	
+
 	public String getStreet() {
 		return street;
 	}
@@ -40,7 +40,6 @@ public class Address {
 	public int getPostalcode() {
 		return postalcode;
 	}
-
 
 	public Person getPerson() {
 		return person;
@@ -65,7 +64,7 @@ public class Address {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Address && ((Address) o).personId == personId;

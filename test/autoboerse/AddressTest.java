@@ -24,10 +24,10 @@ public class AddressTest {
 	static final int florian_id = 1;
 	static final String florian_firstName = "Florian";
 	static final String florian_lastName = "Gumhold";
-	
+
 	static PersonRepository persRepository;
 	static Person florian = new Person(florian_id, florian_firstName, florian_lastName);
-	
+
 	final private String location = "Kapfenberg";
 	final private String street = "Werkstrasse 6";
 	final private int postalcode = 1234;
@@ -35,7 +35,6 @@ public class AddressTest {
 	private Address address = new Address(florian_id, street, postalcode, location);
 
 	static AddressRepository addrRepository;
-
 
 	@BeforeClass
 	public static void setup() {

@@ -18,8 +18,8 @@ public class Person {
 	private String firstName;
 	@Column(name = "LAST_NAME")
 	private String lastName;
-	
-	@OneToOne(mappedBy = "person", cascade=CascadeType.PERSIST)
+
+	@OneToOne(mappedBy = "person", cascade = CascadeType.PERSIST)
 	private Address address;
 
 	public Address getAddress() {
