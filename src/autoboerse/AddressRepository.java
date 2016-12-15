@@ -10,9 +10,9 @@ public class AddressRepository extends Repository<Address> implements IRepositor
 		super(Address.class);
 	}
 
-	public Address createAddress(AddressPK adressePK, String location) {
+	public Address createAddress(int personId, String street, int postalCode, String location) {
 
-		Address address = new Address(adressePK, location);
+		Address address = new Address(personId, street, postalCode, location);
 
 		entityManager.persist(address);
 

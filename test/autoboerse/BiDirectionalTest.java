@@ -50,7 +50,7 @@ public class BiDirectionalTest {
 	final private String location = "Kapfenberg";
 	final private String street = "Werkstrasse 6";
 	final private int postalcode = 1234;
-	final private AddressPK addressPk = new AddressPK(street, postalcode);
+	private Address address = new Address(1, street, postalcode, location);
 	
 	// Person
 	static final int person_id = 1;
@@ -63,7 +63,6 @@ public class BiDirectionalTest {
 	Category category;
 	Feature feature1;
 	Feature feature2;
-	Address address;
 	Person person;
 
 	static CarRepository carRepository;
@@ -115,7 +114,7 @@ public class BiDirectionalTest {
 		category = categoryRepository.createCategory(CategoryId, CategoryDescription);
 		manufacturer = manufacturerRepository.createManufacturer(manufacturerId, manufacturerDescription);
 		car = carRepository.createCar(id, manufacturer, category, name, km, registrationYear, price, description);
-		address = addressRepository.createAddress(addressPk, location);
+		address = addressRepository.createAddress(person_id, street, postalcode, location);
 		person = personRepository.createPerson(person_id, person_firstName, person_lastName);
 
 		Transaction.commit();

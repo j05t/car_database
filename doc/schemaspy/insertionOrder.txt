@@ -1,0 +1,10 @@
+person
+category
+feature
+manufacturer
+car
+buyer
+seller
+address
+car_feature
+transaction

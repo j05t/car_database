@@ -7,7 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import autoboerse.Address;
-import autoboerse.AddressPK;
 import autoboerse.AddressRepository;
 import autoboerse.PersonRepository;
 import spize.persistence.Transaction;
@@ -22,17 +21,25 @@ import spize.persistence.*;
 
 @org.junit.FixMethodOrder(org.junit.runners.MethodSorters.NAME_ASCENDING)
 public class AddressTest {
+	static final int florian_id = 1;
+	static final String florian_firstName = "Florian";
+	static final String florian_lastName = "Gumhold";
+	
+	static PersonRepository persRepository;
+	static Person florian = new Person(florian_id, florian_firstName, florian_lastName);
+	
 	final private String location = "Kapfenberg";
 	final private String street = "Werkstrasse 6";
 	final private int postalcode = 1234;
 
-	final private AddressPK addressPk = new AddressPK(street, postalcode);
+	private Address address = new Address(florian_id, street, postalcode, location);
 
 	static AddressRepository addrRepository;
-	Address address;
+
 
 	@BeforeClass
 	public static void setup() {
+		persRepository = new PersonRepository();
 		addrRepository = new AddressRepository();
 		Transaction.begin();
 		AddressRepository.reset();
@@ -52,7 +59,6 @@ public class AddressTest {
 	@Test
 	public void modify() {
 		Transaction.begin();
-		address = addrRepository.createAddress(addressPk, location);
 		assertNotNull(address);
 
 		Transaction.commit();
