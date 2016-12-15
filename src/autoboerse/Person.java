@@ -3,6 +3,7 @@ package autoboerse;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -19,7 +20,7 @@ public class Person {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@OneToOne(mappedBy = "person", cascade = CascadeType.PERSIST)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
 	private Address address;
 
 	public Address getAddress() {

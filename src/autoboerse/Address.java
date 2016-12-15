@@ -3,10 +3,10 @@ package autoboerse;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Address {
@@ -19,8 +19,8 @@ public class Address {
 	private String street;
 	private int postalcode;
 
-	@OneToOne
-	@PrimaryKeyJoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId	// tells JPA to directly map to id in source; the id column serves as both Primary Key and FK
 	private Person person;
 
 	protected Address() {

@@ -72,7 +72,7 @@ public class PersonAddressTest {
 		florian = persRepository.createPerson(florian_id, florian_firstName, florian_lastName);
 		florian.setAddress(florians_address);
 		assertNotNull(florian);
-		assertNotNull(florians_address);
+		assertNotNull(florian.getAddress());
 		Transaction.commit();
 	}
 

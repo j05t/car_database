@@ -114,8 +114,9 @@ public class BiDirectionalTest {
 		category = categoryRepository.createCategory(CategoryId, CategoryDescription);
 		manufacturer = manufacturerRepository.createManufacturer(manufacturerId, manufacturerDescription);
 		car = carRepository.createCar(id, manufacturer, category, name, km, registrationYear, price, description);
-		address = addressRepository.createAddress(person_id, street, postalcode, location);
 		person = personRepository.createPerson(person_id, person_firstName, person_lastName);
+		address = addressRepository.createAddress(person_id, street, postalcode, location);
+		person.setAddress(address);
 
 		Transaction.commit();
 
