@@ -65,15 +65,15 @@ public class Address {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
 	@Override
 	public boolean equals(Object o) {
-		return o instanceof Address && ((Address) o).postalcode == postalcode
-				&& ((Address) o).street.equals(street);
+		return o instanceof Address && ((Address) o).personId == personId;
 	}
 
 	@Override
 	public int hashCode() {
-		return postalcode + street.hashCode();
+		return postalcode + street.hashCode() + personId;
 	}
 
 	@Override
