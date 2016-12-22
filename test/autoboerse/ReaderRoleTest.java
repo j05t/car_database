@@ -47,21 +47,11 @@ public class ReaderRoleTest {
 		manRepository.createManufacturer(id, name);
 		Transaction.commit();
 		
-		// force JPA to actually commit
-		Transaction.begin();
-		manRepository.createManufacturer(id, name);
-		Transaction.commit();
-		
 		fail("Commit successful.");
 	}
 
 	@Test(expected = RollbackException.class)
 	public void modifyEntity() {
-		Transaction.begin();
-		manRepository.createManufacturer(id, name).setName("Volvo");
-		Transaction.commit();
-		
-		// force JPA to actually commit
 		Transaction.begin();
 		manRepository.createManufacturer(id, name).setName("Volvo");
 		Transaction.commit();
