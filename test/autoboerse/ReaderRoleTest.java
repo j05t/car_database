@@ -46,6 +46,12 @@ public class ReaderRoleTest {
 		Transaction.begin();
 		manRepository.createManufacturer(id, name);
 		Transaction.commit();
+		
+		// force JPA to actually commit
+		Transaction.begin();
+		manRepository.createManufacturer(id, name);
+		Transaction.commit();
+		
 		fail("Commit successful.");
 	}
 
@@ -54,6 +60,12 @@ public class ReaderRoleTest {
 		Transaction.begin();
 		manRepository.createManufacturer(id, name).setName("Volvo");
 		Transaction.commit();
+		
+		// force JPA to actually commit
+		Transaction.begin();
+		manRepository.createManufacturer(id, name).setName("Volvo");
+		Transaction.commit();
+		
 		fail("Commit successful.");
 	}
 }
