@@ -24,7 +24,7 @@ public class WriterRoleTest {
 
 	@BeforeClass
 	public static void setup() {
-		Persistence.connect("carDb", user, password);
+		Persistence.connect(Persistence.getPersistenceUnitName(), user, password);
 		manRepository = new ManufacturerRepository();
 	}
 

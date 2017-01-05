@@ -2,6 +2,7 @@ package autoboerse;
 
 import static org.junit.Assert.*;
 
+import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 
 import org.junit.AfterClass;
@@ -24,7 +25,7 @@ public class ReaderRoleTest {
 
 	@BeforeClass
 	public static void setup() {
-		Persistence.connect("carDb", user, password);
+		Persistence.connect(Persistence.getPersistenceUnitName(), user, password);
 		manRepository = new ManufacturerRepository();
 	}
 
@@ -32,7 +33,6 @@ public class ReaderRoleTest {
 	public static void teardown() {
 		try {
 			Transaction.begin();
-			ManufacturerRepository.reset();
 			Transaction.commit();
 			Persistence.close();
 		} catch (Exception e) {
@@ -58,4 +58,6 @@ public class ReaderRoleTest {
 		
 		fail("Commit successful.");
 	}
+	
+
 }

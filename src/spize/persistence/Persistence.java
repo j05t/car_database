@@ -18,6 +18,7 @@ public class Persistence {
 
 	private static EntityManager em = null;
 	private static EntityManagerFactory emf = null;
+	private static String persistenceUnitName = "carDb";
 
 	private static boolean debugMode = true;
 
@@ -79,6 +80,10 @@ public class Persistence {
 
 	public static void resetSequence(String schema, String sequence) {
 		em.createNativeQuery("ALTER SEQUENCE " + schema + "." + sequence + " RESTART").executeUpdate();
+	}
+	
+	public static String getPersistenceUnitName() {
+		return persistenceUnitName;
 	}
 
 }
