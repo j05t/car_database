@@ -1,4 +1,4 @@
 # CarDatabase JPA/EclipseLink
 Database for car dealership. Java, JPA, Postgres.
 
-![Screenshot](relationships.real.large.png)
+![Screenshot](docs/relationships.real.large.png)
